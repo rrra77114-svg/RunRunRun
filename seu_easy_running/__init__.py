@@ -1,10 +1,13 @@
+import time
+
 from .time_util import calculate_speed, format_display_time
 from .image_upload import upload_image
 from .save_record import save_start_record, save_final_record
 
 
 def run_example(student_id: str, token: str, start_image: str, finish_image: str, track_data: str,
-                date: str, start_time: str, finish_time: str, seconds: int, distance: float, calorie: int):
+                date: str, start_time: str, finish_time: str, seconds: int, distance: float,
+                calorie: int, trackname: str,delay = False):
     """
     模拟提交一次跑步打卡记录，包括起始照片、时间、距离和消耗卡路里等信息。
     Args:
@@ -19,6 +22,8 @@ def run_example(student_id: str, token: str, start_image: str, finish_image: str
         seconds (int): 跑步持续时间（单位：秒）
         distance (float): 跑步距离（单位：公里）
         calorie (int): 本次运动消耗的卡路里
+        trackname (str): 操场名（liuyuan:四牌楼体育场 taoyuan:九龙湖桃园田径场 xiaoying:小营操场）
+        delay (bool): 是否模拟跑步起始结束之间的时间
 
     Returns:
         None
@@ -53,12 +58,15 @@ def run_example(student_id: str, token: str, start_image: str, finish_image: str
 
     # 上传开始图片
     start_img_url = upload_image(headers, start_image, 'start')
-
-    # 上传结束图片
     finish_img_url = upload_image(headers, finish_image, 'finish')
 
     # 保存开始记录
-    record_id = save_start_record(headers, info, start_img_url)
+    record_id = save_start_record(headers, info, start_img_url, trackname)
+
+    if delay:
+        time.sleep(seconds)
+
+    # 上传结束图片
 
     # 保存最终记录
-    save_final_record(headers, info, start_img_url, finish_img_url, record_id)
+    save_final_record(headers, info, start_img_url, finish_img_url, record_id, trackname)
