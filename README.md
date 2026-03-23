@@ -19,3 +19,9 @@ Notes:
 1. 请先配置好 python 环境并执行 `pip install -r requirements.txt` 安装依赖，本项目已在 python3.11, `requests==2.31.0`
    环境下通过测试
 2. 似乎在校园网环境下会遇到证书问题，大概可以在发送请求的位置添加 `verify=False` 禁用证书验证来解决，作者没有遇到过，故不甚了解
+
+
+### 2026.03更新
+新增了两条路线，`get_track_data()`中添加了随机偏移
+`demo.py`可以看着用，不对直接/间接使用造成的一切后果承担责任。
+token的获取方法可以参考<https://github.com/SweetGargamel/SEU_exercise>（或者使用抓包软件似乎更简单）
