@@ -14,7 +14,7 @@ def get_track_data(trackname: str):
         dLat = (random.random() - 0.5) * 0.00002
         dLng = (random.random() - 0.5) * 0.00002
         for i in range(random.randint(10, 11)):
-            point = {"lat": points["lat"] + dLat, "lng": points["lng"] + dLng, "sortNum": sortnum}
+            point = {"lat": float(points["lat"]) + dLat, "lng": float(points["lng"]) + dLng, "sortNum": sortnum}
             track_random.append(point)
             sortnum += 1
     return str(track_random)
